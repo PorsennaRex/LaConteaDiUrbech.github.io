@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<title>La Contea di Urbech</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+:root {
+  --green: #00ff88;
+  --green-soft: rgba(0,255,136,0.3);
+  --bg: #050608;
+  --card: rgba(10, 20, 15, 0.75);
+  --border: rgba(0,255,136,0.25);
+  --text-dim: rgba(0,255,136,0.65);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Courier New", monospace;
+  background: radial-gradient(circle at top, #0a1a12, var(--bg));
+  color: var(--green);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* HEADER */
+
+header {
+  margin-top: 2.5rem;
+  text-align: center;
+}
+
+h1 {
+  font-size: 2.3rem;
+  text-shadow: 0 0 15px var(--green);
+  margin-bottom: 0.2rem;
+}
+
+.subtitle {
+  font-size: 0.95rem;
+  color: var(--text-dim);
+  letter-spacing: 0.04em;
+}
+
+/* CLOCK */
+
+.clock {
+  margin-top: 1.2rem;
+  font-size: 0.95rem;
+  opacity: 0.85;
+}
+
+/* TABS */
+
+.tabs {
+  display: flex;
+  gap: 1rem;
+  margin: 2rem 0 1.5rem;
+}
+
+.tab-btn {
+  background: none;
+  border: none;
+  color: var(--text-dim);
+  padding: 0.6rem 1.1rem;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: 0.2s ease;
+}
+
+.tab-btn.active {
+  color: var(--green);
+  border-color: var(--green);
+  text-shadow: 0 0 6px var(--green);
+}
+
+/* CONTENT */
+
+.panel {
+  display: none;
+  width: 92%;
+  max-width: 900px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.6rem;
+  margin-bottom: 2rem;
+  backdrop-filter: blur(6px);
+}
+
+.panel.active {
+  display: block;
+}
+
+.links {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.links a {
+  border: 1px solid var(--green);
+  padding: 0.85rem;
+  border-radius: 8px;
+  text-decoration: none;
+  color: var(--green);
+  transition: 0.2s ease;
+}
+
+.links a:hover {
+  background: rgba(0,255,136,0.08);
+  box-shadow: 0 0 12px var(--green-soft);
+  transform: translateY(-2px);
+}
+
+/* STATUS */
+
+.status {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px,1fr));
+  gap: 1rem;
+  margin-top: 1.2rem;
+}
+
+.status div {
+  border: 1px dashed var(--border);
+  padding: 0.8rem;
+  border-radius: 8px;
+  font-size: 0.85rem;
+}
+
+/* CONSOLE */
+
+.console {
+  margin-top: 1.5rem;
+  background: #030403;
+  border: 1px solid var(--border);
+  padding: 0.8rem;
+  font-size: 0.8rem;
+  border-radius: 6px;
+  color: var(--text-dim);
+}
+
+/* FOOTER */
+
+footer {
+  margin-bottom: 1.5rem;
+  font-size: 0.7rem;
+  opacity: 0.6;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>La Contea di Urbech</h1>
+  <div class="subtitle">La matrice osserva · Accesso autorizzato</div>
+  <div class="clock" id="clock"></div>
+</header>
+
+<div class="tabs">
+  <button class="tab-btn active" onclick="openTab('system', this)">🖥 Sistema</button>
+  <button class="tab-btn" onclick="openTab('web', this)">🌐 Verifica Siti</button>
+  <button class="tab-btn" onclick="openTab('phone', this)">📞 Numeri</button>
+</div>
+
+<!-- SISTEMA -->
+<div id="system" class="panel active">
+  <div class="links">
+    <a href="https://dash.cloudflare.com" target="_blank">Cloudflare Dashboard</a>
+    <a href="https://github.com" target="_blank">GitHub</a>
+    <a href="https://account.proton.me" target="_blank">Proton Console</a>
+    <a href="https://www.speedtest.net" target="_blank">SpeedTest</a>
+  </div>
+
+  <div class="status">
+    <div>🟢 Network: ONLINE</div>
+    <div>🟢 Security Layer: ACTIVE</div>
+    <div>🟢 Integrity Check: OK</div>
+    <div>🕒 Uptime: Continuous</div>
+  </div>
+
+  <div class="console">
+    &gt; Initializing Urbech Interface…<br>
+    &gt; Matrix node synced<br>
+    &gt; Awaiting command
+  </div>
+</div>
+
+<!-- VERIFICA SITI -->
+<div id="web" class="panel">
+  <div class="links">
+    <a href="https://www.scamadviser.com" target="_blank">ScamAdviser</a>
+    <a href="https://www.urlvoid.com" target="_blank">URLVoid</a>
+  </div>
+</div>
+
+<!-- VERIFICA NUMERI -->
+<div id="phone" class="panel">
+  <div class="links">
+    <a href="https://www.tellows.it" target="_blank">Tellows</a>
+    <a href="https://it.caller-rating.com" target="_blank">Caller Rating</a>
+  </div>
+</div>
+
+<footer>
+  ➜ La Contea di Urbech · Powered by GitHub Pages
+</footer>
+
+<script>
+function openTab(id, btn) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+}
+
+function updateClock() {
+  const now = new Date();
+  document.getElementById("clock").textContent =
+    "⏱ " + now.toLocaleTimeString() + " · " + now.toLocaleDateString();
+}
+setInterval(updateClock, 1000);
+updateClock();
+</script>
+
+</body>
+</html>
