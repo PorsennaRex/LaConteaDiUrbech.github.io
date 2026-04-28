@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <title>La Contea di Urbech :: HUD</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <style>
 :root{
  --neon:#00ffee;
@@ -16,95 +17,114 @@
 *{box-sizing:border-box}
 body{
  margin:0;
- font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+ font-family:ui-monospace,Consolas,monospace;
  color:var(--neon);
  background:
- linear-gradient(rgba(0,255,238,.05) 1px,transparent 1px),
- linear-gradient(90deg,rgba(0,255,238,.05) 1px,transparent 1px),
- radial-gradient(circle at top,#09202b,var(--bg));
+  linear-gradient(rgba(0,255,238,.05) 1px,transparent 1px),
+  linear-gradient(90deg,rgba(0,255,238,.05) 1px,transparent 1px),
+  radial-gradient(circle at top,#09202b,var(--bg));
  background-size:40px 40px,40px 40px,cover;
  min-height:100vh;
  display:flex;
  flex-direction:column;
- align-items:center
-}
-body::after{
- content:"";
- position:fixed;
- inset:0;
- pointer-events:none;
- background:repeating-linear-gradient(
-  to bottom,
-  rgba(0,0,0,0) 0,
-  rgba(0,0,0,0) 2px,
-  rgba(0,0,0,.08) 3px
- );
- mix-blend-mode:overlay
+ align-items:center;
 }
 header{text-align:center;margin-top:2.5rem}
-h1{font-size:2.2rem;letter-spacing:.15em;text-shadow:0 0 20px var(--neon)}
-.subtitle{font-size:.75rem;color:var(--text-dim);margin-top:.4rem}
-.clock{margin-top:1rem;font-size:.8rem;opacity:.85}
-.tabs{display:flex;gap:1.4rem;margin:2.5rem 0 1.5rem}
-.tab{background:none;border:none;color:var(--text-dim);padding:.6rem 1rem;cursor:pointer;position:relative}
-.tab.active{color:var(--neon);text-shadow:0 0 8px var(--neon)}
-.tab.active::after{
- content:"";
- position:absolute;
- bottom:-6px;
- left:0;
- width:100%;
- height:2px;
- background:var(--neon);
- box-shadow:0 0 10px var(--neon)
+h1{text-shadow:0 0 20px var(--neon);letter-spacing:.15em}
+.subtitle{font-size:.75rem;color:var(--text-dim)}
+.clock{font-size:.8rem;margin-top:.6rem}
+
+.tabs{
+ display:flex;
+ flex-wrap:wrap;
+ gap:.8rem;
+ margin:2.2rem 0 1.5rem;
+ justify-content:center
 }
+.tab{
+ background:none;border:none;color:var(--text-dim);
+ padding:.6rem 1rem;cursor:pointer
+}
+.tab.active{color:var(--neon);text-shadow:0 0 8px var(--neon)}
+
 .panel{
- display:none;
- width:92%;
- max-width:980px;
+ display:none;width:92%;max-width:1000px;
  background:var(--panel);
  border:1px solid var(--border);
  border-radius:14px;
  padding:1.6rem;
- backdrop-filter:blur(6px);
  margin-bottom:2rem;
- box-shadow:0 0 25px rgba(0,255,238,.1);
- position:relative
 }
 .panel.active{display:block}
-.panel::before,.panel::after{
- content:"";
- position:absolute;
- width:14px;
- height:14px;
- border:2px solid var(--neon)
+
+.section-title{
+ margin:1.2rem 0 .5rem;
+ font-size:.75rem;
+ letter-spacing:.2em;
+ color:var(--text-dim);
+ border-left:3px solid var(--neon);
+ padding-left:.6rem;
 }
-.panel::before{top:10px;left:10px;border-right:none;border-bottom:none}
-.panel::after{bottom:10px;right:10px;border-left:none;border-top:none}
+
 .links{
  display:grid;
  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
- gap:1rem
+ gap:1rem;margin-bottom:1.4rem
 }
 .links a{
  border:1px solid var(--border);
- padding:.85rem;
- border-radius:8px;
- text-decoration:none;
- color:var(--neon);
- transition:.2s;
- background:rgba(0,255,238,.03)
+ padding:.85rem;border-radius:8px;
+ text-decoration:none;color:var(--neon);
+ background:rgba(0,255,238,.03);
+ transition:.15s
 }
 .links a:hover{
- background:rgba(0,255,238,.12);
- box-shadow:0 0 18px var(--neon-soft);
+ background:rgba(0,255,238,.15);
+ box-shadow:0 0 16px var(--neon-soft);
  transform:translateY(-2px)
 }
+
+/* SEARCH MODAL */
+.search-btn{
+ position:fixed;bottom:20px;right:20px;
+ background:var(--panel);
+ border:1px solid var(--border);
+ color:var(--neon);
+ padding:.6rem .9rem;
+ cursor:pointer;
+}
+.search-modal{
+ display:none;
+ position:fixed;inset:0;
+ background:rgba(0,0,0,.8);
+ backdrop-filter:blur(4px);
+ z-index:999;
+}
+.search-box{
+ max-width:600px;margin:8% auto;
+ background:var(--panel);
+ border:1px solid var(--border);
+ padding:1rem;border-radius:12px;
+}
+.search-box input{
+ width:100%;padding:.7rem;
+ background:#000;color:var(--neon);
+ border:1px solid var(--border);
+ outline:none;
+}
+.search-results a{
+ display:block;padding:.5rem;
+ border-bottom:1px solid var(--border);
+ text-decoration:none;color:var(--neon)
+}
+.search-results a:hover{background:rgba(0,255,238,.15)}
+
 footer{font-size:.65rem;opacity:.55;margin-bottom:1.5rem}
 </style>
 </head>
 
 <body>
+
 <header>
  <h1>URBECH SYSTEM HUD</h1>
  <div class="subtitle">Neural Interface · Secure Channel</div>
@@ -112,71 +132,108 @@ footer{font-size:.65rem;opacity:.55;margin-bottom:1.5rem}
 </header>
 
 <div class="tabs">
- <button class="tab active" onclick="openTab('sys',this)">SYSTEM</button>
- <button class="tab" onclick="openTab('web',this)">WEB</button>
- <button class="tab" onclick="openTab('tel',this)">COMMS</button>
+ <button class="tab active" onclick="openTab('system',this)">SYSTEM</button>
+ <button class="tab" onclick="openTab('network',this)">NETWORK</button>
+ <button class="tab" onclick="openTab('security',this)">SECURITY</button>
+ <button class="tab" onclick="openTab('download',this)">DOWNLOAD</button>
+ <button class="tab" onclick="openTab('mail',this)">MAIL</button>
+ <button class="tab" onclick="openTab('tempmail',this)">TEMP MAIL</button>
+ <button class="tab" onclick="openTab('comms',this)">COMMS</button>
 </div>
 
 <!-- SYSTEM -->
-<div id="sys" class="panel active">
+<div id="system" class="panel active">
+ <div class="section-title">CLOUD & DEV</div>
  <div class="links">
-  <!-- original -->
   <a href="https://dash.cloudflare.com" target="_blank">Cloudflare</a>
   <a href="https://github.com" target="_blank">GitHub</a>
-  <a href="https://account.proton.me" target="_blank">Proton Console</a>
-  <a href="https://www.speedtest.net" target="_blank">SpeedTest</a>
-
-  <!-- aggiunti -->
   <a href="https://render.com" target="_blank">Render</a>
-  <a href="https://ifconfig.me" target="_blank">What is my IP</a>
-  <a href="https://www.ipaddress.com" target="_blank">MyPublicIP</a>
-  <a href="https://ipinfo.io" target="_blank">IPInfo</a>
-  <a href="https://www.subnet-calculator.com" target="_blank">Subnet Calculator</a>
-  <a href="https://freeformatter.com/cron-expression-generator-quartz.html" target="_blank">Cron Generator</a>
   <a href="https://www.oracle.com/cloud" target="_blank">Oracle Cloud</a>
-
-  <!-- ISO / Tools -->
-  <a href="https://tails.net/index.it.html" target="_blank">Tails</a>
-  <a href="https://www.hirensbootcd.org" target="_blank">HirensBootCD</a>
-  <a href="https://www.ventoy.net/en/index.html" target="_blank">Ventoy</a>
-  <a href="https://ubuntu.com" target="_blank">Ubuntu</a>
-
-  <!-- Mail -->
-  <a href="https://mail.google.com" target="_blank">Gmail</a>
-  <a href="https://outlook.live.com" target="_blank">Outlook</a>
-  <a href="https://mail.yahoo.com" target="_blank">Yahoo</a>
-  <a href="https://mail.tiscali.it" target="_blank">Tiscali</a>
-  <a href="https://mail.tutanota.com" target="_blank">Tutanota</a>
-  <a href="https://mail1.virgilio.it" target="_blank">Virgilio</a>
-  <a href="https://www.icloud.com/mail" target="_blank">iCloud Mail</a>
-
-  <!-- Temporary mail -->
-  <a href="https://yopmail.com/it" target="_blank">YopMail</a>
-  <a href="https://www.emailtemporalgratis.com" target="_blank">Email Temporal</a>
-  <a href="https://temp-mail.org/en" target="_blank">Temp-Mail</a>
  </div>
 </div>
 
-<!-- WEB -->
-<div id="web" class="panel">
+<!-- NETWORK -->
+<div id="network" class="panel">
+ <div class="section-title">DIAGNOSTICA</div>
+ <div class="links">
+  <a href="https://www.speedtest.net" target="_blank">Speedtest</a>
+  <a href="https://ifconfig.me" target="_blank">What is my IP</a>
+  <a href="https://ipinfo.io" target="_blank">IP Info</a>
+ </div>
+
+ <div class="section-title">TOOLS</div>
+ <div class="links">
+  <a href="https://www.subnet-calculator.com" target="_blank">Subnet Calculator</a>
+  <a href="https://freeformatter.com/cron-expression-generator-quartz.html" target="_blank">Cron Generator</a>
+ </div>
+</div>
+
+<!-- SECURITY -->
+<div id="security" class="panel">
+ <div class="section-title">REPUTATION</div>
  <div class="links">
   <a href="https://www.scamadviser.com" target="_blank">ScamAdviser</a>
   <a href="https://www.urlvoid.com" target="_blank">URLVoid</a>
-  <a href="http://cqcounter.com/whois" target="_blank">Whois / IP</a>
+ </div>
+
+ <div class="section-title">WHOIS</div>
+ <div class="links">
+  <a href="http://cqcounter.com/whois/" target="_blank">CQCounter Whois</a>
+ </div>
+</div>
+
+<!-- DOWNLOAD -->
+<div id="download" class="panel">
+ <div class="section-title">ISO & BOOT</div>
+ <div class="links">
+  <a href="https://tails.net/index.it.html">Tails</a>
+  <a href="https://www.hirensbootcd.org">Hiren’s BootCD</a>
+  <a href="https://www.ventoy.net/en/index.html">Ventoy</a>
+  <a href="https://ubuntu.com">Ubuntu</a>
+ </div>
+</div>
+
+<!-- MAIL -->
+<div id="mail" class="panel">
+ <div class="section-title">MAIL PROVIDERS</div>
+ <div class="links">
+  <a href="https://mail.google.com">Gmail</a>
+  <a href="https://outlook.live.com">Outlook</a>
+  <a href="https://mail.yahoo.com">Yahoo</a>
+  <a href="https://mail.tutanota.com">Tutanota</a>
+  <a href="https://www.icloud.com/mail">iCloud</a>
+ </div>
+</div>
+
+<!-- TEMP MAIL -->
+<div id="tempmail" class="panel">
+ <div class="section-title">TEMPORARY MAIL</div>
+ <div class="links">
+  <a href="https://yopmail.com/it/">YopMail</a>
+  <a href="https://temp-mail.org/en/">Temp‑Mail</a>
+  <a href="https://www.emailtemporalgratis.com/">Email Temporal</a>
  </div>
 </div>
 
 <!-- COMMS -->
-<div id="tel" class="panel">
+<div id="comms" class="panel">
+ <div class="section-title">PHONE CHECK</div>
  <div class="links">
-  <a href="https://www.tellows.it" target="_blank">Tellows</a>
-  <a href="https://it.caller-rating.com" target="_blank">Caller Rating</a>
+  <a href="https://www.tellows.it">Tellows</a>
+  <a href="https://it.caller-rating.com">Caller Rating</a>
  </div>
 </div>
 
-<footer>
- © La Contea di Urbech · GitHub Pages · Encrypted Channel
-</footer>
+<button class="search-btn" onclick="openSearch()">🔍 Search</button>
+
+<div class="search-modal" id="searchModal">
+ <div class="search-box">
+  <input id="searchInput" placeholder="Search link..." oninput="searchLinks()">
+  <div class="search-results" id="results"></div>
+ </div>
+</div>
+
+<footer>© La Contea di Urbech · HUD Interface</footer>
 
 <script>
 function openTab(id,el){
@@ -187,11 +244,26 @@ function openTab(id,el){
 }
 function clock(){
  const d=new Date();
- document.getElementById("clock").textContent=
+ document.getElementById('clock').textContent=
  d.toLocaleTimeString()+" · "+d.toLocaleDateString();
 }
 setInterval(clock,1000);clock();
+
+function openSearch(){document.getElementById('searchModal').style.display='block'}
+document.addEventListener('keydown',e=>{
+ if(e.ctrlKey && e.key==='k'){e.preventDefault();openSearch()}
+ if(e.key==='Escape'){document.getElementById('searchModal').style.display='none'}
+})
+function searchLinks(){
+ const q=document.getElementById('searchInput').value.toLowerCase();
+ const res=document.getElementById('results');res.innerHTML='';
+ document.querySelectorAll('.links a').forEach(a=>{
+  if(a.textContent.toLowerCase().includes(q)){
+   const c=a.cloneNode(true);res.appendChild(c)
+  }
+ })
+}
 </script>
+
 </body>
 </html>
-``
