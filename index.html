@@ -13,35 +13,6 @@
  --panel:rgba(5,15,20,.88);
  --border:rgba(0,255,238,.35);
  --text-dim:rgba(180,255,250,.7);
-
-.bing-search{
- display:flex;
- gap:.6rem;
- margin-bottom:1.6rem;
-}
-
-.bing-search input{
- flex:1;
- padding:.7rem;
- background:#000;
- color:var(--neon);
- border:1px solid var(--border);
- outline:none;
- font-family:inherit;
-}
-
-.bing-search button{
- background:var(--panel);
- color:var(--neon);
- border:1px solid var(--border);
- padding:.7rem 1.2rem;
- cursor:pointer;
- letter-spacing:.15em;
-}
-
-.bing-search button:hover{
- box-shadow:0 0 12px var(--neon-soft);
-}
  
 }
 *{box-sizing:border-box}
@@ -173,22 +144,6 @@ footer{font-size:.65rem;opacity:.55;margin-bottom:1.5rem}
 
 <!-- SYSTEM -->
 <div id="system" class="panel active">
-
- <div class="section-title">BING SEARCH · MICROSOFT</div>
-
-https://www.bing.com/search
-      
-  <input type="text"
-         name="q"
-         placeholder="Search the web with Bing…"
-         required>
-
-  <input type="hidden" name="form" value="MSNVS">
-  <input type="hidden" name="setlang" value="it">
-
-  <button type="submit">SEARCH</button>
-</form>
- 
  <div class="section-title">CLOUD & DEV</div>
  <div class="links">
   <a href="https://dash.cloudflare.com" target="_blank">Cloudflare</a>
